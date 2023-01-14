@@ -8,17 +8,25 @@ function App()
 
 	const [dice, setDice] = React.useState(getNewDices())
 	const [tenzies, setTenzies] = React.useState(false)
-	const [moves, setMoves] = React.useState(0)
+	const [moves, setMoves] = React.useState(0);
+	const [record, setRecord] = React.useState(JSON.parse(localStorage.getItem("record")) || "-")
 
 	React.useEffect(() => {
         const firstValue = dice[0].value
         const allHeld = dice.every(die => die.isHeld)
         const allSameNumber = dice.every(die => die.value === firstValue)
-		console.log(allHeld, allSameNumber);
         if(allHeld && allSameNumber) {
             setTenzies(true)
         }
     }, [dice])
+
+	React.useEffect(()=>{
+		if(tenzies && (record=="-" || moves <= record))
+		{
+			localStorage.setItem("record", JSON.stringify(moves));
+			setRecord(moves);
+		}
+	},[tenzies])
 
 	function getRandomValue(){
 		return Math.floor(Math.random() * 6 + 1)
@@ -38,11 +46,18 @@ function App()
 	}
 
 	function handleRoll(){
-		{!tenzies && setDice(oldDie=>oldDie.map(die=>{
+		if(!tenzies)
+		{
+			setDice(oldDie=>oldDie.map(die=>{
 			return die.isHeld===true ? die : {...die, value: getRandomValue(), isHeld: false}
-			}
-		))}
-		{tenzies && setDice(getNewDices()); setTenzies(false)}
+			}));
+			setMoves(old=>old+1);
+		}
+		else{
+			setDice(getNewDices()); 
+			setTenzies(false); 
+			setMoves(0);
+		}
 	}
 
 	function handleDiceClicked(id){
@@ -64,7 +79,12 @@ function App()
 			</nav>
 			<div className="playground">
 				<div className="playground-board">
-					
+					<div id="playground-board-moves" className="playground-boxes">
+						<span className="heading">Record : </span><span className="value">{record}</span>
+					</div>
+					<div id="playground-board-elapsedTime" className="playground-boxes">
+						<span className="heading">Moves : </span><span className="value">{moves}</span>
+					</div>
 				</div>
 				<main>
 					{tenzies && <Confetti/>}

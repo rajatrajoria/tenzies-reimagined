@@ -3,7 +3,13 @@ import '../Die/die.css'
 
 export default function Die(props){
 
-    const styles = {backgroundColor: props.isHeld===true ? "#59E391" : "white"}
+    // const styles = {backgroundImage: `url(${props.isHeld===true ? "https://i.imgur.com/i3J6PhY.jpg" : "none"}")`}
+    const styles = {
+        backgroundImage: props.isHeld==false ? "none" : "url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLpQzVn3ZysCknc_KQcvh_iz_yjgqtmNL7bg&usqp=CAU)",
+        backgroundSize: props.isHeld==false ? "auto" : "cover",
+        backgroundRepeat: props.isHeld==false ? "auto" : "no-repeat",
+        color: props.isHeld==false ? "black" : "white"
+    }
 
     function handleClick(){
         props.handleDiceClicked(props.id);
