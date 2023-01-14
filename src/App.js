@@ -2,17 +2,17 @@ import React from "react"
 import './App.css';
 import Die from "./components/Die/Die.js"
 import Confetti from "react-confetti"
+import handleSubmit from "./handles/handlesubmit";
 
 function App() 
 {
-
 	const [dice, setDice] = React.useState(getNewDices())
 	const [tenzies, setTenzies] = React.useState(false)
 	const [moves, setMoves] = React.useState(0);
 	const [record, setRecord] = React.useState(JSON.parse(localStorage.getItem("record")) || "-")
 
 	React.useEffect(() => {
-        const firstValue = dice[0].value
+        const firstValue = dice[0].value;
         const allHeld = dice.every(die => die.isHeld)
         const allSameNumber = dice.every(die => die.value === firstValue)
         if(allHeld && allSameNumber) {
@@ -25,6 +25,13 @@ function App()
 		{
 			localStorage.setItem("record", JSON.stringify(moves));
 			setRecord(moves);
+		}
+		if(tenzies)
+		{
+			const date = new Date();
+			let current_time = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
+			let current_date = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+			handleSubmit(name, moves, current_time+" "+current_date);
 		}
 	},[tenzies])
 
@@ -72,11 +79,26 @@ function App()
 		)
 	})
 
+	const [name, setName] = React.useState("Player");
+	function handleNameChange(event){
+		setName(event.target.value);
+	}
+
 	return (
 		<div className="app-container">
 			<nav>
 				<h1>Tenzies</h1>
 			</nav>
+			<form onSubmit={(e)=>{e.preventDefault()}}>
+				<input
+					type="text"
+					className="input-name"
+					placeholder="Type your name here"
+					maxLength={30}
+					onChange={handleNameChange}
+					id="player-name"
+				/>
+			</form>
 			<div className="playground">
 				<div className="playground-board">
 					<div id="playground-board-moves" className="playground-boxes">
@@ -92,6 +114,9 @@ function App()
 					<div className="die-container">{diceElements}</div>
 					<button className="roll-button" onClick={handleRoll}>{tenzies? "Reset Game" : "Roll"}</button>
 				</main>
+			</div>
+			<div className="global-score-board">
+				
 			</div>
 		</div>
 	);
