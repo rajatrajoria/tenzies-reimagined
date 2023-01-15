@@ -32,8 +32,16 @@ function App()
 		if(tenzies)
 		{
 			const date = new Date();
-			let current_time = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
-			let current_date = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var ampm = hours >= 12 ? 'pm' : 'am';
+			hours = hours % 12;
+			hours = hours ? hours : 12; 
+			minutes = minutes < 10 ? '0'+minutes : minutes;
+			var strTime = hours + ':' + minutes + ' ' + ampm;
+
+			let current_time = strTime;
+			let current_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 			handleSubmit(name, moves, current_time, current_date);
 		}
 	},[tenzies])
@@ -82,9 +90,11 @@ function App()
 		)
 	})
 
-	const [name, setName] = React.useState("Player");
+	const [name, setName] = React.useState(JSON.parse(localStorage.getItem("playerName")) || "Player")
+	// const [name, setName] = React.useState("Player");
 	function handleNameChange(event){
 		setName(event.target.value);
+		localStorage.setItem("playerName",JSON.stringify(event.target.value));
 	}
 
 /********************************************Fetching the Scoreboard********************************* */
@@ -100,7 +110,7 @@ function App()
 	}
 	React.useEffect(()=>{
 		fetchPost();
-	}, [])
+	}, [tenzies])
 
 /************************************************************************************************** */
 
@@ -117,6 +127,7 @@ function App()
 					maxLength={30}
 					onChange={handleNameChange}
 					id="player-name"
+					value={name}
 				/>
 			</form>
 			<div className="playground">
