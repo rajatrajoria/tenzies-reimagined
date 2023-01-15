@@ -3,6 +3,9 @@ import './App.css';
 import Die from "./components/Die/Die.js"
 import Confetti from "react-confetti"
 import handleSubmit from "./handles/handlesubmit";
+import { collection, getDocs } from "firebase/firestore";
+import {db} from './firebase';
+import Leaderboard from "./components/Leaderboard/Leaderboard"
 
 function App() 
 {
@@ -31,7 +34,7 @@ function App()
 			const date = new Date();
 			let current_time = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
 			let current_date = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
-			handleSubmit(name, moves, current_time+" "+current_date);
+			handleSubmit(name, moves, current_time, current_date);
 		}
 	},[tenzies])
 
@@ -84,6 +87,23 @@ function App()
 		setName(event.target.value);
 	}
 
+/********************************************Fetching the Scoreboard********************************* */
+	
+	const [scoreboard, setScoreboard] = React.useState([]);
+	const fetchPost = async () => {
+		await getDocs(collection(db, "test_data"))
+			.then((querySnapshot)=>{               
+				const newData = querySnapshot.docs
+					.map((doc) => ({...doc.data(), id:doc.id }));
+				setScoreboard(newData);             
+			})
+	}
+	React.useEffect(()=>{
+		fetchPost();
+	}, [])
+
+/************************************************************************************************** */
+
 	return (
 		<div className="app-container">
 			<nav>
@@ -116,7 +136,7 @@ function App()
 				</main>
 			</div>
 			<div className="global-score-board">
-				
+				<Leaderboard data={scoreboard}/>
 			</div>
 		</div>
 	);
