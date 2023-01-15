@@ -63,25 +63,44 @@ function App()
 		return newDice;
 	}
 
-	function handleRoll(){
-		if(!tenzies)
+	function handleRoll()
+	{
+		if(name.trim()!="")
 		{
-			setDice(oldDie=>oldDie.map(die=>{
-			return die.isHeld===true ? die : {...die, value: getRandomValue(), isHeld: false}
-			}));
-			setMoves(old=>old+1);
+			if(!tenzies)
+			{
+				setDice(oldDie=>oldDie.map(die=>{
+				return die.isHeld===true ? die : {...die, value: getRandomValue(), isHeld: false}
+				}));
+				setMoves(old=>old+1);
+			}
+			else{
+				setDice(getNewDices()); 
+				setTenzies(false); 
+				setMoves(0);
+			}
 		}
-		else{
-			setDice(getNewDices()); 
-			setTenzies(false); 
-			setMoves(0);
+		else
+		{
+			alert("You need to enter your name to start...")
 		}
 	}
 
+	function handleReset(){
+		setDice(getNewDices()); 
+		setTenzies(false); 
+		setMoves(0);
+	}
+
 	function handleDiceClicked(id){
-		setDice(prevDice=>prevDice.map(die=>{
-			return (die.id===id) ? {...die, isHeld: !die.isHeld} : die;
-		}))
+		if(name.trim()!="")
+		{
+			setDice(prevDice=>prevDice.map(die=>{
+				return (die.id===id) ? {...die, isHeld: !die.isHeld} : die;
+			}))
+		}
+		else
+		alert("You need to enter your name to start...")
 	}
 
 	const diceElements = dice.map(item=>{
@@ -90,8 +109,7 @@ function App()
 		)
 	})
 
-	const [name, setName] = React.useState(JSON.parse(localStorage.getItem("playerName")) || "Player")
-	// const [name, setName] = React.useState("Player");
+	const [name, setName] = React.useState(JSON.parse(localStorage.getItem("playerName")) || "")
 	function handleNameChange(event){
 		setName(event.target.value);
 		localStorage.setItem("playerName",JSON.stringify(event.target.value));
@@ -117,14 +135,14 @@ function App()
 	return (
 		<div className="app-container">
 			<nav>
-				<h1>Tenzies</h1>
+				<h1>🍀Tenzies🍀</h1>
 			</nav>
 			<form onSubmit={(e)=>{e.preventDefault()}}>
 				<input
 					type="text"
 					className="input-name"
 					placeholder="Type your name here"
-					maxLength={30}
+					maxLength={13}
 					onChange={handleNameChange}
 					id="player-name"
 					value={name}
@@ -143,7 +161,8 @@ function App()
 					{tenzies && <Confetti/>}
 					<p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
 					<div className="die-container">{diceElements}</div>
-					<button className="roll-button" onClick={handleRoll}>{tenzies? "Reset Game" : "Roll"}</button>
+					<button className="roll-button" onClick={handleRoll}>{tenzies? "Restart" : "Roll 🎲"}</button>
+					{!tenzies && <button className="roll-button" onClick={handleReset} style={{marginTop: "10px"}}>Reset ⟳</button>}
 				</main>
 			</div>
 			<div className="global-score-board">

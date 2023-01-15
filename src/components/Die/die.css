@@ -10,6 +10,10 @@
     background-color: white;
 }
 
+.die-face:hover{
+    box-shadow: 5px 5px 3px rgba(9, 96, 227, 0.1);
+}
+
 .die-face-num{
     font-size: 2rem;
     font-weight: 400;
@@ -21,6 +25,27 @@
     .die-face{
         height: 50px;
         width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 3.57447px 3.57447px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: white;
+    }
+    
+    .die-face-num{
+        font-size: 2rem;
+        font-weight: 400;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+@media only screen and (max-width: 470px)
+{
+    .die-face{
+        height: 55px;
+        width: 55px;
         display: flex;
         align-items: center;
         justify-content: center;

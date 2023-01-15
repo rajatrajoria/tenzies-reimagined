@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(1, 1, 33);
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .leaderboard-container-heading{
@@ -14,6 +14,16 @@
     width: 100%;
     text-align: center;
     background-color: rgb(121, 181, 183);
+    background-image: linear-gradient(to bottom, rgb(129, 230, 234), rgb(201, 191, 191));
+}
+
+h4{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+h1{
+    margin-bottom: 5px;
 }
 
 #leaderboard-table {
@@ -42,7 +52,7 @@
 #leaderboard-table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #04AA6D;
+  background-image: linear-gradient(to bottom, #ff6600 ,#ae5c26);
   color: white;
   text-align: center;
 }
@@ -51,13 +61,20 @@
 {
     .leaderboard-container-heading > h1{
         font-size: 25px;
+        margin-bottom: 5px;
     }
 
     #leaderboard-table {
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
-        width: 95%;
-        margin-top: 10px;
+        width: 100%;
+        margin-top: 0px;
         box-shadow: 0px 0px 50px white;
     }
+}
+
+
+@media only screen and (max-width: 450px)
+{
+    
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import "./leaderboard.css"
+import Confetti from "react-confetti"
 
 export default function Leaderboard(props)
 {
@@ -40,13 +41,13 @@ export default function Leaderboard(props)
                 return 1;
         }
     });
-
+//(count-1 == 2 ? "🥉" : "")}       (count-1 == 2 ? "🥈" : "") 
     let count = 1;
-    const leaderboard_ele = props.data.map(item=>{
+    let leaderboard_ele = props.data.map(item=>{
         return(
             <tr>
                 <td>{count++}</td>
-                <td>{item.Name}</td>
+                <td>{item.Name + (count-1 == 1 ? "🥇" : (count-1 == 2 ? "🥈" : count-1 == 3 ? "🥉" : ""))}</td>
                 <td>{item.Score}</td>
                 <td>{item.Time}</td>
                 <td>{item.Date}</td>
@@ -54,12 +55,13 @@ export default function Leaderboard(props)
         )
     })
 
-    console.log(props.data);
+    leaderboard_ele = leaderboard_ele.slice(0,200);
 
     return(
         <div className="leaderboard-container">
             <div className="leaderboard-container-heading">
                 <h1>🏆GLOBAL LEADERBOARD🏆</h1>
+                <h4>"Top 200"</h4>
             </div>
             <table id="leaderboard-table">
                 <tr>
