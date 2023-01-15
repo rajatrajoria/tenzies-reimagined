@@ -6,6 +6,7 @@ import handleSubmit from "./handles/handlesubmit";
 import { collection, getDocs } from "firebase/firestore";
 import {db} from './firebase';
 import Leaderboard from "./components/Leaderboard/Leaderboard"
+import Footer from "./components/Footer/Footer";
 
 function App() 
 {
@@ -168,6 +169,7 @@ function App()
 			<div className="global-score-board">
 				<Leaderboard data={scoreboard}/>
 			</div>
+			<Footer/>
 		</div>
 	);
 }
