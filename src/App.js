@@ -147,6 +147,7 @@ function App()
 					onChange={handleNameChange}
 					id="player-name"
 					value={name}
+					autoComplete="off"
 				/>
 			</form>
 			<div className="playground">
