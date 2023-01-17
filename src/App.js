@@ -161,7 +161,7 @@ function App()
 				</div>
 				<main>
 					{tenzies && <Confetti/>}
-					<p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+					<p>Roll until all dice are the same. Click a die to freeze its value. Game ends when all the dies show same value and are frozen.</p>
 					<div className="die-container">{diceElements}</div>
 					<button className="roll-button" onClick={handleRoll}>{tenzies? "Restart" : "Roll 🎲"}</button>
 					{!tenzies && <button className="roll-button" onClick={handleReset} style={{marginTop: "10px"}}>Reset ⟳</button>}

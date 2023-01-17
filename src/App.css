@@ -223,3 +223,11 @@ form > input{
         margin-bottom: 20px;
     }
 }
+
+@media only screen and (max-width: 395px)
+{
+    nav > h1{
+        font-size: 12vw;
+        white-space: nowrap;
+    }
+}

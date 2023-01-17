@@ -63,12 +63,13 @@ export default function Leaderboard(props)
         }
     });
 //(count-1 == 2 ? "🥉" : "")}       (count-1 == 2 ? "🥈" : "") 
+// + (count-1 == 1 ? "🥇" : (count-1 == 2 ? "🥈" : count-1 == 3 ? "🥉" : ""))
     let count = 1;
     let leaderboard_ele = props.data.map(item=>{
         return(
-            <tr>
-                <td>{count++}</td>
-                <td>{item.Name + (count-1 == 1 ? "🥇" : (count-1 == 2 ? "🥈" : count-1 == 3 ? "🥉" : ""))}</td>
+            <tr style={{backgroundImage: count==1 ? "linear-gradient(to bottom, white ,gold" : count==2 ? "linear-gradient(to bottom, white ,silver" : count==3?"linear-gradient(to bottom, white , #CD7F32" : ""}}>
+                <td>{count++ + (count == 2 ? "🥇" : (count == 3 ? "🥈" : (count == 4 ? "🥉" : "")))}</td>
+                <td>{item.Name}</td>
                 <td>{item.Score}</td>
                 <td>{item.Time}</td>
                 <td>{item.Date}</td>
