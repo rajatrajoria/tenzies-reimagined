@@ -10,15 +10,36 @@ export default function Leaderboard(props)
         let hr = Number(arr[0]);
         let arrnew = arr[1].split(' ');
         let mint = Number(arrnew[0]), ampm = arrnew[1];
-        return ((hr+(ampm=="pm"?12:0))*60 + mint)
+        return ((hr%12)+(ampm=="pm"?12:0))*60 + mint;
     }
 
     function compareTimes(t1, t2){
         return convertTime(t1) > convertTime(t2);
     }
 
-    function compareDates(d1, d2){
-        return new Date(d1) > new Date(d2);
+    function compareDates(d1, d2){      // returns true if d1 > d2;
+        let a = d1.split('/');
+        let b = d2.split('/');
+        let d1day = parseInt(a[0]), d1month = parseInt(a[1]), d1year = parseInt(a[2]);
+        let d2day = parseInt(b[0]), d2month = parseInt(b[1]), d2year = parseInt(b[2]);
+        if(d1year > d2year)
+            return true;
+        else if(d1year < d2year)
+            return false;
+        else
+        {
+            if(d1month > d2month)
+                return true;
+            else if(d1month < d2month)
+                return false;
+            else
+            {
+                if(d1day > d2day)
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
     
     props.data.sort((a, b) => {
@@ -28,15 +49,15 @@ export default function Leaderboard(props)
             return 1;
         else
         {
-            if(compareDates(a.Date, b.Date))
-                return -1;
-            else if(a.Date==b.Date)
+            if(a.Date==b.Date)
             {
                 if(compareTimes(a.Time, b.Time))
                     return -1;
                 else
                     return 1;
             }
+            else if(compareDates(a.Date, b.Date))
+                return -1;
             else
                 return 1;
         }
