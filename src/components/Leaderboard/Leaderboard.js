@@ -66,7 +66,7 @@ export default function Leaderboard(props)
     let count = 1;
     let leaderboard_ele = props.data.map(item=>{
         return(
-            <tr style={{backgroundImage: count==1 ? "linear-gradient(to bottom, white ,gold" : count==2 ? "linear-gradient(to bottom, white ,silver" : count==3?"linear-gradient(to bottom, white , #CD7F32" : ""}}>
+            <tr style={{backgroundImage: count==1 ? "linear-gradient(to left, white ,gold" : count==2 ? "linear-gradient(to left, white ,silver" : count==3?"linear-gradient(to left, white , #CD7F32" : ""}}>
                 <td>{count++ + (count == 2 ? "🥇" : (count == 3 ? "🥈" : (count == 4 ? "🥉" : "")))}</td>
                 <td style={{fontWeight: count==2||count==3|| count==4 ? "bold" : ""}}>{item.Name}</td>
                 <td style={{fontWeight: count==2||count==3|| count==4 ? "bold" : ""}}>{item.Score}</td>

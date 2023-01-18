@@ -43,6 +43,7 @@ function App()
 
 			let current_time = strTime;
 			let current_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+			new Audio("Celebrate.wav").play();
 			handleSubmit(name, moves, current_time, current_date);
 		}
 	},[tenzies])
@@ -70,12 +71,16 @@ function App()
 		{
 			if(!tenzies)
 			{
+				var audio = new Audio("Roll.wav");
+				audio.play();
 				setDice(oldDie=>oldDie.map(die=>{
-				return die.isHeld===true ? die : {...die, value: getRandomValue(), isHeld: false}
+					return die.isHeld===true ? die : {...die, value: getRandomValue(), isHeld: false}
 				}));
 				setMoves(old=>old+1);
 			}
 			else{
+				var audio = new Audio("RefreshReset.wav");
+				audio.play();
 				setDice(getNewDices()); 
 				setTenzies(false); 
 				setMoves(0);
@@ -88,6 +93,8 @@ function App()
 	}
 
 	function handleReset(){
+		var audio = new Audio("RefreshReset.wav");
+		audio.play();
 		setDice(getNewDices()); 
 		setTenzies(false); 
 		setMoves(0);
