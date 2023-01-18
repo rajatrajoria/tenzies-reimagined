@@ -7,6 +7,8 @@ import { collection, getDocs } from "firebase/firestore";
 import {db} from './firebase';
 import Leaderboard from "./components/Leaderboard/Leaderboard"
 import Footer from "./components/Footer/Footer";
+import axios from "axios";
+
 
 function App() 
 {
@@ -14,6 +16,15 @@ function App()
 	const [tenzies, setTenzies] = React.useState(false)
 	const [moves, setMoves] = React.useState(0);
 	const [record, setRecord] = React.useState(JSON.parse(localStorage.getItem("record")) || "-")
+
+    const [userData, setUserData] = React.useState(null);
+	const getData = async () => {
+		const res = await axios.get('https://geolocation-db.com/json/')
+		setUserData({"IP": res.data.IPv4, "City": res.data.city, "State": res.data.state, "Country": res.data.country_name});
+	}
+	React.useEffect( () => {
+		getData();
+	  }, []);
 
 	React.useEffect(() => {
         const firstValue = dice[0].value;
@@ -44,7 +55,8 @@ function App()
 			let current_time = strTime;
 			let current_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 			new Audio("Celebrate.wav").play();
-			handleSubmit(name, moves, current_time, current_date);
+			
+			handleSubmit(name, moves, current_time, current_date, userData);
 		}
 	},[tenzies])
 
