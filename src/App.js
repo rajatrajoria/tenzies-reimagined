@@ -72,6 +72,7 @@ function App()
 			if(!tenzies)
 			{
 				var audio = new Audio("Roll.wav");
+				audio.volume = 0.5;
 				audio.play();
 				setDice(oldDie=>oldDie.map(die=>{
 					return die.isHeld===true ? die : {...die, value: getRandomValue(), isHeld: false}
@@ -79,7 +80,7 @@ function App()
 				setMoves(old=>old+1);
 			}
 			else{
-				var audio = new Audio("RefreshReset.wav");
+				var audio = new Audio("Reset2.wav");
 				audio.play();
 				setDice(getNewDices()); 
 				setTenzies(false); 
@@ -93,7 +94,7 @@ function App()
 	}
 
 	function handleReset(){
-		var audio = new Audio("RefreshReset.wav");
+		var audio = new Audio("Reset2.wav");
 		audio.play();
 		setDice(getNewDices()); 
 		setTenzies(false); 
