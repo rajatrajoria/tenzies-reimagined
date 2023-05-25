@@ -1,6 +1,6 @@
 # Tenzies - Play it globally!
 
-This project is React Js based. The game is fairly simple but what makes it engaging and fun to play with is the game's capability of maintaining a global leaderboard. The GUI has been kep as simple and pleasing as possible. Sound effects are also added to make the experience more soothing. Challenge and compete with your friends. Let's see who gets the puzzle solved in least number of moves
+This project is React Js based. The game is fairly simple but what makes it engaging and fun to play with is the game's capability of maintaining a global leaderboard. The GUI has been kept as simple and pleasing as possible. Sound effects are also added to make the experience more soothing. Challenge and compete with your friends. Let's see who gets the puzzle solved in least number of moves
   
 <br>
 
